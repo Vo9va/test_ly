@@ -29,6 +29,8 @@ pipeline {
 
     post {
         always {
+            sh 'node scripts/junit-group.js test-results/junit.xml e2e'
+
             junit allowEmptyResults: true,
                   testResults: 'test-results/junit.xml',
                   testDataPublishers: [[$class: 'JUnitFlakyTestDataPublisher']]
