@@ -1,23 +1,34 @@
 pipeline {
     agent any
 
+    options {
+        disableConcurrentBuilds()
+        timeout(time: 60, unit: 'MINUTES')
+    }
+
+    environment {
+        CI = 'true'
+    }
+
     stages {
         stage('Install') {
             steps {
-                bat 'npm ci || npm install'
-                bat 'npx playwright install --with-deps chromium'
+                sh 'node -v && npm -v'
+                sh 'npm ci || npm install'
+                sh 'npx playwright install chromium'
             }
         }
+
         stage('Test') {
             steps {
-                bat 'npx playwright test'
+                sh 'npx playwright test'
             }
         }
     }
 
     post {
         always {
-            junit 'test-results/junit.xml'
+            junit allowEmptyResults: true, testResults: 'test-results/junit.xml'
             archiveArtifacts artifacts: 'playwright-report/**', allowEmptyArchive: true
         }
     }
