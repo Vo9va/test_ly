@@ -35,26 +35,25 @@ test('passing test 5 - кнопка клікабельна', async ({ page }) =>
   await expect(page.locator('#btn')).toBeEnabled();
 });
 
-// 5 тестів, що падають (навмисно)
-test('failing test 1 - неправильний заголовок', async ({ page }) => {
+test('passing test 6 - правильний заголовок', async ({ page }) => {
   await page.setContent(HTML);
-  await expect(page).toHaveTitle('Wrong Title');
+  await expect(page).toHaveTitle('Demo Page');
 });
 
-test('failing test 2 - неправильний текст h1', async ({ page }) => {
+test('passing test 7 - правильний текст h1', async ({ page }) => {
   await page.setContent(HTML);
-  await expect(page.locator('h1')).toHaveText('Wrong Heading');
+  await expect(page.locator('h1')).toHaveText('Hello World');
 });
 
-test('failing test 3 - невірне математичне твердження', async () => {
-  expect(2 + 2).toBe(5);
+test('passing test 8 - вірне математичне твердження', async () => {
+  expect(2 + 2).toBe(4);
 });
 
-test('failing test 4 - рядок не містить підрядок', async () => {
-  expect('playwright').toContain('cypress');
+test('passing test 9 - рядок містить підрядок', async () => {
+  expect('playwright').toContain('wright');
 });
 
-test('failing test 5 - елемент, якого не існує', async ({ page }) => {
+test('passing test 10 - елемент дійсно відсутній', async ({ page }) => {
   await page.setContent(HTML);
-  await expect(page.locator('#does-not-exist')).toBeVisible({ timeout: 2000 });
+  await expect(page.locator('#does-not-exist')).toHaveCount(0);
 });
