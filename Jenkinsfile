@@ -21,6 +21,7 @@ pipeline {
 
         stage('Test') {
             steps {
+                sh 'rm -rf test-results'
                 sh 'npx playwright test'
             }
         }
@@ -28,8 +29,22 @@ pipeline {
 
     post {
         always {
-            junit allowEmptyResults: true, testResults: 'test-results/junit.xml'
-            archiveArtifacts artifacts: 'playwright-report/**', allowEmptyArchive: true
+            junit allowEmptyResults: true,
+                  testResults: 'test-results/junit.xml',
+                  testDataPublishers: [[$class: 'JUnitFlakyTestDataPublisher']]
+
+            archiveArtifacts artifacts: 'playwright-report/**, test-results/results.json', allowEmptyArchive: true
+
+            script {
+                def flaky = sh(returnStdout: true, script: '''
+                    node -e "try { console.log(require('./test-results/results.json').stats.flaky) } catch (e) { console.log(0) }"
+                ''').trim()
+
+                echo "Flaky тестів: ${flaky}"
+                if (flaky != '0') {
+                    currentBuild.description = "⚠️ Flaky: ${flaky}"
+                }
+            }
         }
     }
 }

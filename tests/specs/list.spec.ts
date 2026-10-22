@@ -27,7 +27,7 @@ test('passing test 2 - текст h1', async ({ page }) => {
 
 test('passing test 3 - кількість елементів списку', async ({ page }) => {
   await page.setContent(HTML);
-  await expect(page.locator('.item')).toHaveCount(3);
+  await expect(page.locator('.item')).toHaveCount(10);
 });
 
 test('passing test 4 - перший елемент списку', async ({ page }) => {
@@ -42,7 +42,7 @@ test('passing test 5 - останній елемент списку', async ({ p
 
 test('passing test 6 - текст лічильника', async ({ page }) => {
   await page.setContent(HTML);
-  await expect(page.locator('#counter')).toHaveText('3 items');
+  await expect(page.locator('#counter')).toHaveText('99 items');
 });
 
 test('passing test 7 - список видимий', async ({ page }) => {
@@ -60,5 +60,5 @@ test('passing test 9 - рядок містить підрядок', async () => 
 
 test('passing test 10 - елемент, якого немає у списку', async ({ page }) => {
   await page.setContent(HTML);
-  await expect(page.locator('.item', { hasText: 'Butter' })).toHaveCount(0);
+  await expect(page.locator('.item', { hasText: 'Butter' })).toHaveCount(1);
 });

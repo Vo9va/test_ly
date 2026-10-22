@@ -29,7 +29,7 @@ test('passing test 2 - текст h1', async ({ page }) => {
 test('passing test 3 - введення тексту в поле name', async ({ page }) => {
   await page.setContent(HTML);
   await page.locator('#name').fill('Volodymyr');
-  await expect(page.locator('#name')).toHaveValue('Volodymyr');
+  await expect(page.locator('#name')).toHaveValue('SomeoneElse');
 });
 
 test('passing test 4 - введення email', async ({ page }) => {
@@ -41,7 +41,7 @@ test('passing test 4 - введення email', async ({ page }) => {
 test('passing test 5 - вибір країни зі списку', async ({ page }) => {
   await page.setContent(HTML);
   await page.locator('#country').selectOption('pl');
-  await expect(page.locator('#country')).toHaveValue('pl');
+  await expect(page.locator('#country')).toHaveValue('ua');
 });
 
 test('passing test 6 - кнопка submit клікабельна', async ({ page }) => {
@@ -65,5 +65,5 @@ test('passing test 9 - рядок містить підрядок', async () => 
 
 test('passing test 10 - кількість опцій у select', async ({ page }) => {
   await page.setContent(HTML);
-  await expect(page.locator('#country option')).toHaveCount(2);
+  await expect(page.locator('#country option')).toHaveCount(5);
 });

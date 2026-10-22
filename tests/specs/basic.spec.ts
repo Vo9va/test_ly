@@ -13,7 +13,7 @@ const HTML = `
 // 5 тестів, що проходять
 test('passing test 1 - заголовок сторінки', async ({ page }) => {
   await page.setContent(HTML);
-  await expect(page).toHaveTitle('Demo Page');
+  await expect(page).toHaveTitle('Wrong Title');
 });
 
 test('passing test 2 - текст h1', async ({ page }) => {
@@ -26,7 +26,7 @@ test('passing test 3 - просте математичне твердження'
 });
 
 test('passing test 4 - рядок містить підрядок', async () => {
-  expect('playwright').toContain('play');
+  expect('playwright').toContain('selenium');
 });
 
 test('passing test 5 - кнопка клікабельна', async ({ page }) => {
@@ -46,7 +46,7 @@ test('passing test 7 - правильний текст h1', async ({ page }) => 
 });
 
 test('passing test 8 - вірне математичне твердження', async () => {
-  expect(2 + 2).toBe(4);
+  expect(2 + 2).toBe(5);
 });
 
 test('passing test 9 - рядок містить підрядок', async () => {
